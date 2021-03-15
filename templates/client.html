@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hand Cricket</title>
+        <link rel="stylesheet" href="{% static 'css/client.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="finalscore">
+            <table class="table table-bordered">
+                <thead>
+                    <tr><th scope="col" style="text-align:center">Score</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td align="center">{{final_score}}/{{wickets}}</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="scorecard">
+            {% if score %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="text-align:center">You</th>
+                        <th scope="col" style="text-align:center">Edith</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td align="center">{{score}}</td>
+                        <td align="center">{{server_score}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            {%else%}
+            {% endif %}
+        </div>
+        <div class="alert alert-secondary message" role="alert">
+            {% if msg and wickets < 3 %}
+                {{msg}}
+            {% else %}
+                {%if msg%}
+                    You got {{final_score}} runs.<a href="{% url 'index' %}">Click here</a> to return to home page.
+                {%else%}
+                    Choose any number from below options.
+                {% endif %}
+            {% endif %}
+          </div>
+        <div class="runs">
+            {% if not game_end %}
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="score" value="1">
+                        <img src="https://tse1.mm.bing.net/th?id=OIP.PkeecrqaxG38SCxYU4vmpAHaHa&pid=Api&P=0&w=300&h=300" class="block">
+                    </button>
+                    <button type="submit" name="score" value="2">
+                        <img src="https://tse4.mm.bing.net/th?id=OIP.3aMvSN5q7rkDE7dLumNEYQHaHa&pid=Api&P=0&w=300&h=300" class="block">
+                    </button>
+                    <button type="submit" name="score" value="3">
+                        <img src="https://tse3.mm.bing.net/th?id=OIP.oMwa9HdOXzCBlfoazgP2mQHaHa&pid=Api&P=0&w=300&h=300" class="block">
+                    </button type="submit">
+                    <button type="submit" name="score" value="4">
+                        <img src="https://tse1.mm.bing.net/th?id=OIP.fC9FhiRgbGl3bl-N3bnibgHaHa&pid=Api&P=0&w=300&h=300" class="block">
+                    </button>
+                    <button type="submit" name="score" value="5">
+                    <img src="https://tse1.mm.bing.net/th?id=OIP.Qr08-vt4RZi9qd_LSHwyRwHaHa&pid=Api&P=0&w=300&h=300" class="block">
+                    </button>
+                    <button type="submit" name="score" value="6">
+                        <img src="https://tse4.mm.bing.net/th?id=OIP.5YFLVsK79d_X0pA15rdEUgHaHa&pid=Api&P=0&w=300&h=300" class="block">
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </body>
+</html>

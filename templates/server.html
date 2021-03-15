@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hand Cricket</title>
+    <link rel="stylesheet" href="{% static 'css/server.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="main">
+        <div class="leaderboard">
+            <header>LeaderBoard</header>
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Score</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if top_scores %}
+                    {% for top_score in top_scores %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{top_score.name}}</td>
+                            <td>{{top_score.score}}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="play_form">
+            <form method="GET">
+                <input type="text" id="username" name="username" placeholder="Enter your name to play and try to get to that leaderboard."><br><br>
+                <button onclick="get_to_play()" type="button" class="btn btn-secondary">Play Game</button><br>
+            </form>
+        </div>
+    </div>
+    <script>
+        function get_to_play(){
+            username = document.getElementById('username').value;
+            window.location.href = "{% url 'playing' %}"+"?username="+username;
+        }
+    </script>
+</body>
+</html>
